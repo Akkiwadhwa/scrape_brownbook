@@ -1,7 +1,10 @@
 import concurrent.futures
+
 import pandas as pd
 import requests
 from tqdm import tqdm
+
+requests.urllib3.disable_warnings()
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
@@ -25,7 +28,7 @@ cookies = {
 def scrap(x):
     global dict1
     r = requests.get(f"https://api.brownbook.net/app/api/v1/businesses/resource/{x}/revision", headers=headers,
-                     cookies=cookies)
+                     cookies=cookies, verify=False)
     data = r.json()
     tag = ""
     try:
